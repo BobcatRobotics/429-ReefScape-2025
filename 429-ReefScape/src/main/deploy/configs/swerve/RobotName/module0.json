@@ -14,7 +14,7 @@
     "type": "cancoder",
     "id": 1,
     "canbus": "CANivore",
-    "offset": 0.2856,
+    "offset": 0.494,
     "inverted": false
   },
   "manufacturer":"sds",
