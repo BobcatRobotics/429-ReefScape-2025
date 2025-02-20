@@ -1,7 +1,8 @@
 {
-  "base": {
-    "trackWidth": 24.00,
-    "wheelBase": 24.00
+//Distance between center of wheels - 20.729 inches
+"base": {
+    "trackWidth": 26.00, //left to right
+    "wheelBase": 26.00 //front to bqack
   },
   "moduleSpeedLimits": {
     "maxSpeed": 4.5,
