@@ -6,25 +6,25 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.RollerConstants;
 
-public class ArmSubsystem extends SubsystemBase {
+public class RollerSubsystem extends SubsystemBase {
 
-  private final TalonFX armMotor;
+  private final TalonFX rollerMotor;
 
   /**
-   * This subsytem that controls the arm.
+   * This subsytem that controls the roller.
    */
-  public ArmSubsystem() {
+  public RollerSubsystem() {
 
-    // Set up the arm motor as a brushed motor
+    // Set up the roller motor as a brushed motor
     String Busname = "";
-    armMotor = new TalonFX(ArmConstants.ARM_MOTOR_ID, Busname);
+    rollerMotor = new TalonFX(RollerConstants.ROLLER_MOTOR_ID, Busname);
 
     TalonFXConfiguration Config = new TalonFXConfiguration();
     Config.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
     Config.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
-    Config.CurrentLimits.withSupplyCurrentLimit(ArmConstants.ARM_MOTOR_CURRENT_LIMIT);
+    Config.CurrentLimits.withSupplyCurrentLimit(RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT);
 
   }
 
@@ -33,16 +33,15 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * This is a method that makes the arm move at your desired speed
+   * This is a method that makes the roller move at your desired speed
    * Positive values make it spin forward and negative values spin it in reverse
    * 
    * @param speed motor speed from -1.0 to 1, with 0 stopping it
    */
-  public void runArm(double speed) {
-    armMotor.set(speed);
+  public void runRoller(double speed) {
+    rollerMotor.set(speed);
   }
-
-  public void stopArm(){
-    armMotor.stopMotor();
+  public void stopRoller(){
+    rollerMotor.stopMotor();
   }
 }
