@@ -2,18 +2,18 @@
   "drive": {
     "motor_type": "Falcon500",
     "id": 3,
-    "canbus": "CANivore"
+    "canbus": "rio"
   },
   "angle": {
     "motor_type": "Falcon500",
     "id": 4,
-    "canbus": "CANivore"
+    "canbus": "rio"
   },
   "encoder": {
     "type": "cancoder",
     "id": 2,
-    "canbus": "CANivore",
-    "offset": 0.0022,
+    "canbus": "rio",
+    "offset": 0.23584,
     "inverted": false
   },
   "manufacturer":"sds",
