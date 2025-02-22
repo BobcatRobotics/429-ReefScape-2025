@@ -13,4 +13,23 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final class Controllers {
+        public static final int operator_controller_port = 2;
+      }
+    public static final class ArmConstants {
+        public static final int ARM_MOTOR_ID = 6;
+        public static final int ARM_MOTOR_CURRENT_LIMIT = 60;
+        public static final double ARM_MOTOR_VOLTAGE_COMP = 10;
+        public static final double ARM_SPEED_DOWN = 0.4;
+        public static final double ARM_SPEED_UP = -0.4;
+        public static final double ARM_HOLD_DOWN = 0.1;
+        public static final double ARM_HOLD_UP = -0.15;
+      }
+    public static final class RollerConstants {
+        public static final int ROLLER_MOTOR_ID = 100;
+        public static final int ROLLER_MOTOR_CURRENT_LIMIT = 60;
+        public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
+        public static final double ROLLER_SPEED_OUT = 0.4;
+        public static final double ROLLER_SPEED_IN = -0.4;
+      }
 }

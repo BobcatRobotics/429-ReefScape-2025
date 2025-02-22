@@ -5,6 +5,8 @@
 package frc.robot;
 
 import java.util.List;
+
+import BobcatLib.Hardware.Controllers.EightBitDo;
 import BobcatLib.Hardware.Controllers.OI;
 import BobcatLib.Subsystems.Swerve.SimpleSwerve.Containers.SwerveBase;
 import BobcatLib.Subsystems.Swerve.SimpleSwerve.Swerve.Module.Utility.PIDConstants;
@@ -13,7 +15,9 @@ import BobcatLib.Subsystems.Swerve.Utility.LoadablePathPlannerAuto;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Subsystems.ArmSubsystem;
+import frc.robot.Subsystems.RollerSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -25,7 +29,18 @@ import edu.wpi.first.wpilibj2.command.Commands;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer extends SwerveBase {
+        public final ArmSubsystem m_arm = new ArmSubsystem();
+        public final RollerSubsystem m_roller = new RollerSubsystem();
 
+        public Command armUpCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_UP));
+        public Command armDownCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_DOWN));
+        public Command rollerInCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_IN));
+        public Command rollerOutCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_OUT));
+
+        public Command armStopCommand = new InstantCommand(()->m_arm.stopArm());
+        public Command rollerStopCommand = new InstantCommand(()->m_roller.stopRoller());
+
+        EightBitDo m_operatorController = new EightBitDo(Constants.Controllers.operator_controller_port);
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
@@ -55,6 +70,10 @@ public class RobotContainer extends SwerveBase {
         @Override
         public void configureButtonBindings() {
                 super.configureButtonBindings();
+                m_operatorController.getLeftBumper().whileTrue(armUpCommand).onFalse(armStopCommand);
+                m_operatorController.getRightBumper().whileTrue(armDownCommand).onFalse(armStopCommand);
+                m_operatorController.getLeftTrigger().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
+                m_operatorController.getRightTrigger().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
         }
 
         /**
