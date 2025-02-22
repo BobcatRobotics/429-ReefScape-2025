@@ -41,6 +41,7 @@ public class ArmSubsystem extends SubsystemBase {
   public void runArm(double speed) {
     armMotor.set(speed);
   }
+
   public void stopArm(){
     armMotor.stopMotor();
   }

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Subsystems.ArmSubsystem;
 import frc.robot.Subsystems.RollerSubsystem;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -39,6 +40,7 @@ public class RobotContainer extends SwerveBase {
 
         public Command armStopCommand = new InstantCommand(()->m_arm.stopArm());
         public Command rollerStopCommand = new InstantCommand(()->m_roller.stopRoller());
+
 
         EightBitDo m_operatorController = new EightBitDo(Constants.Controllers.operator_controller_port);
         /**
@@ -74,6 +76,7 @@ public class RobotContainer extends SwerveBase {
                 m_operatorController.getRightBumper().whileTrue(armDownCommand).onFalse(armStopCommand);
                 m_operatorController.getLeftTrigger().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
                 m_operatorController.getRightTrigger().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
+
         }
 
         /**
