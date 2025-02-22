@@ -42,7 +42,7 @@ public class RobotContainer extends SwerveBase {
         public Command rollerStopCommand = new InstantCommand(()->m_roller.stopRoller());
 
 
-        EightBitDo m_operatorController = new EightBitDo(Constants.Controllers.operator_controller_port);
+        public EightBitDo m_operatorController;
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
@@ -55,6 +55,9 @@ public class RobotContainer extends SwerveBase {
                         PIDConstants rotPidPathPlanner) {
 
                 super(driver_controller, autos, robotName, isSim, alliance, tranPidPathPlanner, rotPidPathPlanner);
+                
+                configureOperatorButtonBindings();
+
         }
 
         public void periodic() {
@@ -69,14 +72,13 @@ public class RobotContainer extends SwerveBase {
          * it to a {@link
          * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
          */
-        @Override
-        public void configureButtonBindings() {
-                super.configureButtonBindings();
+        public void configureOperatorButtonBindings() {
+                m_operatorController = new EightBitDo(Constants.Controllers.operator_controller_port);
                 m_operatorController.getLeftBumper().whileTrue(armUpCommand).onFalse(armStopCommand);
                 m_operatorController.getRightBumper().whileTrue(armDownCommand).onFalse(armStopCommand);
-                m_operatorController.getLeftTrigger().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
-                m_operatorController.getRightTrigger().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
-
+                m_operatorController.getAorCross().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
+                m_operatorController.getBorCircle().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
+                
         }
 
         /**
