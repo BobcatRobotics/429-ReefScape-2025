@@ -19,7 +19,7 @@ public class Climber extends SubsystemBase {
 
     // Set up the arm motor as a brushed motor
     climberMotor = new ThriftyNova(ClimberConstants.CLIMBER_MOTOR_ID);
-      climberMotor.setInverted(false);
+      climberMotor.setInverted(true);
       climberMotor.setBrakeMode(true);
       climberMotor.setMaxCurrent(CurrentType.STATOR, ClimberConstants.CLIMBER_STATOR);
       climberMotor.setMaxCurrent(CurrentType.SUPPLY, ClimberConstants.CLIMBER_SUPPLY);

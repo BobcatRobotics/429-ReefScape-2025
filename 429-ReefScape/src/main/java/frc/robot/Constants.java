@@ -37,8 +37,8 @@ public final class Constants {
         public static final int CLIMBER_MOTOR_ID = 1;
         public static final double CLIMBER_SUPPLY = 50;
         public static final double CLIMBER_STATOR = 50;
-        public static final double CLIMBER_SPEED_OUT =-0.2;
-        public static final double CLIMBER_SPEED_IN = 0.2;
+        public static final double CLIMBER_SPEED_OUT =-0.4;
+        public static final double CLIMBER_SPEED_IN = 0.4;
 
       }
     
