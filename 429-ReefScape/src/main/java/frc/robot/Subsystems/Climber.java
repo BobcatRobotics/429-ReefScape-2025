@@ -1,31 +1,28 @@
 package frc.robot.Subsystems;
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.thethriftybot.ThriftyNova;
+import com.thethriftybot.ThriftyNova.CurrentType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ClimberConstants;
 
-public class ArmSubsystem extends SubsystemBase {
 
-  private final TalonFX armMotor;
+public class Climber extends SubsystemBase {
+
+  //private final TalonFX armMotor;
+  private final ThriftyNova climberMotor;
 
   /**
    * This subsytem that controls the arm.
    */
-  public ArmSubsystem() {
+  public Climber() {
 
     // Set up the arm motor as a brushed motor
-    String Busname = "";
-    armMotor = new TalonFX(ArmConstants.ARM_MOTOR_ID, Busname);
-
-    TalonFXConfiguration Config = new TalonFXConfiguration();
-    Config.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
-    Config.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
-    Config.CurrentLimits.withSupplyCurrentLimit(ArmConstants.ARM_MOTOR_CURRENT_LIMIT);
-
+    climberMotor = new ThriftyNova(ClimberConstants.CLIMBER_MOTOR_ID);
+      climberMotor.setInverted(false);
+      climberMotor.setBrakeMode(true);
+      climberMotor.setMaxCurrent(CurrentType.STATOR, ClimberConstants.CLIMBER_STATOR);
+      climberMotor.setMaxCurrent(CurrentType.SUPPLY, ClimberConstants.CLIMBER_SUPPLY);
   }
 
   @Override
@@ -33,16 +30,16 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   /**
-   * This is a method that makes the arm move at your desired speed
-   * Positive values make it spin forward and negative values spin it in reverse
+   * This is a method that makes the climber move at your desired speed
+   * Positive values make it pull in to the robot and negative values would unravel the winch.
    * 
    * @param speed motor speed from -1.0 to 1, with 0 stopping it
    */
-  public void runArm(double speed) {
-    armMotor.set(speed);
+  public void runClimber(double speed) {
+    climberMotor.setPercent(speed);
   }
 
-  public void stopArm(){
-    armMotor.stopMotor();
+  public void stopClimber(){
+    climberMotor.stopMotor();
   }
 }
