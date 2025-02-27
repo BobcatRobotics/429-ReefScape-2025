@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Subsystems.ArmSubsystem;
+import frc.robot.Subsystems.Climber;
 import frc.robot.Subsystems.RollerSubsystem;
 
 
@@ -32,12 +33,16 @@ import frc.robot.Subsystems.RollerSubsystem;
 public class RobotContainer extends SwerveBase {
         public final ArmSubsystem m_arm = new ArmSubsystem();
         public final RollerSubsystem m_roller = new RollerSubsystem();
+        public final Climber m_climber = new Climber();
 
         public Command armUpCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_UP));
         public Command armDownCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_DOWN));
         public Command rollerInCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_IN));
         public Command rollerOutCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_OUT));
+        public Command climberWinchIn = new InstantCommand(()->m_climber.runClimber(Constants.ClimberConstants.CLIMBER_SPEED_IN));
+        public Command climberWinchOut = new InstantCommand(()->m_climber.runClimber(Constants.ClimberConstants.CLIMBER_SPEED_OUT));
 
+        public Command climberStopCommand =new InstantCommand(()->m_climber.stopClimber());
         public Command armStopCommand = new InstantCommand(()->m_arm.stopArm());
         public Command rollerStopCommand = new InstantCommand(()->m_roller.stopRoller());
 
@@ -74,10 +79,15 @@ public class RobotContainer extends SwerveBase {
          */
         public void configureOperatorButtonBindings() {
                 m_operatorController = new EightBitDo(Constants.Controllers.operator_controller_port);
+
                 m_operatorController.getLeftBumper().whileTrue(armUpCommand).onFalse(armStopCommand);
                 m_operatorController.getRightBumper().whileTrue(armDownCommand).onFalse(armStopCommand);
+
                 m_operatorController.getAorCross().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
                 m_operatorController.getBorCircle().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
+
+                m_operatorController.getXorSquare().whileTrue(climberWinchIn).onFalse(climberStopCommand);
+                m_operatorController.getYorTriangle().whileTrue(climberWinchOut).onFalse(climberStopCommand);
                 
         }
 
