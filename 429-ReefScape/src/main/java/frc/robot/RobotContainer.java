@@ -38,7 +38,8 @@ public class RobotContainer extends SwerveBase {
         public Command armUpCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_UP));
         public Command armDownCommand = new InstantCommand(()->m_arm.runArm(Constants.ArmConstants.ARM_SPEED_DOWN));
         public Command rollerInCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_IN));
-        public Command rollerOutCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SPEED_OUT));
+        public Command rollerSlowOutCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_SLOW_SPEED_OUT));
+        public Command rollerFastOutCommand = new InstantCommand(()->m_roller.runRoller(Constants.RollerConstants.ROLLER_FAST_SPEED_OUT));
         public Command climberWinchIn = new InstantCommand(()->m_climber.runClimber(Constants.ClimberConstants.CLIMBER_SPEED_IN));
         public Command climberWinchOut = new InstantCommand(()->m_climber.runClimber(Constants.ClimberConstants.CLIMBER_SPEED_OUT));
 
@@ -84,7 +85,8 @@ public class RobotContainer extends SwerveBase {
                 m_operatorController.getRightBumper().whileTrue(armDownCommand).onFalse(armStopCommand);
 
                 m_operatorController.getAorCross().whileTrue(rollerInCommand).onFalse(rollerStopCommand);
-                m_operatorController.getBorCircle().whileTrue(rollerOutCommand).onFalse(rollerStopCommand);
+                m_operatorController.getLeftTrigger().whileTrue(rollerSlowOutCommand).onFalse(rollerStopCommand);
+                m_operatorController.getRightTrigger().whileTrue(rollerFastOutCommand).onFalse(rollerStopCommand);
 
                 m_operatorController.getXorSquare().whileTrue(climberWinchIn).onFalse(climberStopCommand);
                 m_operatorController.getYorTriangle().whileTrue(climberWinchOut).onFalse(climberStopCommand);
